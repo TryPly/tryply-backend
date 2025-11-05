@@ -1,7 +1,6 @@
 // `build.gradle.kts`
 plugins {
     id("org.jetbrains.kotlin.jvm") version "2.0.21"
-    id("org.jetbrains.kotlin.kapt") version "2.0.21"
     id("io.quarkus") version "3.20.1"
 }
 
@@ -36,10 +35,6 @@ dependencies {
     implementation("io.quarkus:quarkus-keycloak-authorization")
     implementation("io.quarkus:quarkus-config-yaml")
 
-    // MapStruct
-    implementation("org.mapstruct:mapstruct:$mapstructVersion")
-    kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
-    annotationProcessor("org.mapstruct:mapstruct-processor:$mapstructVersion")
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
@@ -57,9 +52,4 @@ kotlin {
     jvmToolchain(21)
 }
 
-kapt {
-    arguments {
-        arg("mapstruct.defaultComponentModel", "cdi")
-    }
-}
 
