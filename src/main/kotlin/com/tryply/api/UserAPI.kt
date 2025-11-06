@@ -1,8 +1,8 @@
 package com.tryply.api
 
-import com.tryply.model.dto.UserDTO
+import com.tryply.dto.UserDTO
 import com.tryply.model.entity.UserEntity
-import com.tryply.model.validator.UserValidator
+import com.tryply.validator.UserValidator
 import com.tryply.repository.UserRepository
 import io.vertx.core.impl.logging.LoggerFactory
 import jakarta.enterprise.context.ApplicationScoped

@@ -1,12 +1,5 @@
 package com.tryply.security
 
-import com.tryply.model.auth.AuthUserClaims
-import jakarta.enterprise.context.ApplicationScoped
-import jakarta.inject.Inject
-import jakarta.ws.rs.WebApplicationException
-import jakarta.ws.rs.core.Response
-import org.eclipse.microprofile.jwt.JsonWebToken
-
 //@ApplicationScoped
 //class KeycloakAuthProvider @Inject constructor(
 //    private val jwt: JsonWebToken

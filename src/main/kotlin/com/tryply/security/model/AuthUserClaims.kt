@@ -1,4 +1,4 @@
-package com.tryply.model.auth
+package com.tryply.security.model
 
 data class AuthUserClaims (
     val userId: String,

@@ -1,10 +1,10 @@
 package com.tryply.api
 
-import com.tryply.model.dto.ActivityDTO
-import com.tryply.model.dto.TravelDTO
-import com.tryply.model.dto.TravelDayDTO
+import com.tryply.dto.ActivityDTO
+import com.tryply.dto.TravelDTO
+import com.tryply.dto.TravelDayDTO
 import com.tryply.model.entity.TravelDayEntity
-import com.tryply.model.validator.TravelDayValidator
+import com.tryply.validator.TravelDayValidator
 import com.tryply.repository.TravelDayRepository
 import com.tryply.repository.TravelRepository
 import jakarta.enterprise.context.ApplicationScoped

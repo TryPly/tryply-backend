@@ -1,9 +1,8 @@
 package com.tryply.api
 
-import com.tryply.model.dto.ActivityDTO
+import com.tryply.dto.ActivityDTO
 import com.tryply.model.entity.ActivityEntity
-import com.tryply.model.validator.ActivityValidator
-import com.tryply.repository.ActivityDayRepository
+import com.tryply.validator.ActivityValidator
 import com.tryply.repository.ActivityRepository
 import com.tryply.repository.TravelRepository
 import jakarta.enterprise.context.ApplicationScoped

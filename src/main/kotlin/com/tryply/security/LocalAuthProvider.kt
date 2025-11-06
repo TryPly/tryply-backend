@@ -1,12 +1,5 @@
 package com.tryply.security
 
-import com.tryply.model.auth.AuthUserClaims
-import io.smallrye.jwt.auth.principal.JWTParser
-import jakarta.enterprise.context.ApplicationScoped
-import jakarta.inject.Inject
-import jakarta.ws.rs.WebApplicationException
-import jakarta.ws.rs.core.Response
-
 //@ApplicationScoped
 //class LocalAuthProvider @Inject constructor(
 //    private val jwtParser: JWTParser

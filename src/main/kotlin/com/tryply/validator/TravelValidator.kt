@@ -1,6 +1,6 @@
-package com.tryply.model.validator
+package com.tryply.validator
 
-import com.tryply.model.dto.TravelDTO
+import com.tryply.dto.TravelDTO
 
 class TravelValidator {
 

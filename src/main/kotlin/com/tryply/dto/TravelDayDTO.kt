@@ -1,4 +1,4 @@
-package com.tryply.model.dto
+package com.tryply.dto
 
 import java.io.Serializable
 
