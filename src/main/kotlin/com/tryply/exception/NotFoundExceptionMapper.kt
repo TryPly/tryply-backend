@@ -11,18 +11,18 @@ import org.jboss.logging.Logger
 
 @Provider
 @ApplicationScoped
-class GenericExceptionMapper : ExceptionMapper<Throwable> {
+class NotFoundExceptionMapper : ExceptionMapper<NotFoundException> {
 
-    private val log: Logger = Logger.getLogger(GenericExceptionMapper::class.java)
+    private val log: Logger = Logger.getLogger(NotFoundExceptionMapper::class.java)
 
-    override fun toResponse(exception: Throwable): Response {
+    override fun toResponse(exception: NotFoundException): Response {
         log.error("Unhandled error", exception)
         val body = ErrorResponse(
-            status = Response.Status.INTERNAL_SERVER_ERROR.statusCode,
-            error = "Internal Server Error",
-            message = "Unexpected error"
+            status = Response.Status.NOT_FOUND.statusCode,
+            error = "Not Found",
+            message = exception.message
         )
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+        return Response.status(Response.Status.NOT_FOUND)
             .entity(body)
             .type(MediaType.APPLICATION_JSON)
             .build()

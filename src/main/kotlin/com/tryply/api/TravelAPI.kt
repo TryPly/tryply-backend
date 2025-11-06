@@ -1,7 +1,10 @@
 package com.tryply.api
 
 import com.tryply.model.dto.TravelDTO
+import com.tryply.model.dto.TravelDayDTO
 import com.tryply.model.entity.TravelEntity
+import com.tryply.model.validator.TravelValidator
+import com.tryply.repository.TravelDayRepository
 import com.tryply.repository.TravelRepository
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
@@ -25,22 +28,42 @@ class TravelAPI {
 
     @POST
     fun createTravel(travelDTO: TravelDTO): TravelDTO {
+
+        val travelValidator = TravelValidator()
+        if (!travelValidator.validateTravelData(travelDTO)) {
+            throw IllegalArgumentException("Invalid travel data")
+        }
+
         val travel = TravelEntity().apply {
             destination = travelDTO.destination
             name = travelDTO.name
             startDate = travelDTO.startDate
             endDate = travelDTO.endDate
+            days = travelDTO.days
+            imageUrl = travelDTO.imageUrl
         }
         travel.generateCode()
+        travel.generateTravelDays()
 
         travel.persist()
+
         return TravelDTO(
             id = travel.id,
             destination = travel.destination,
             name = travel.name,
             startDate = travel.startDate,
             code = travel.code,
-            endDate = travel.endDate
+            endDate = travel.endDate,
+            imageUrl = travel.imageUrl,
+            days = travel.days,
+            travelDays = travel.travelDayEntityList.map {TravelDayDTO(
+                id = it.id,
+                dayNumber = it.dayNumber,
+                name = it.name,
+                description = it.description,
+                travelId = travel.id!!,
+                activities = null
+            ) }
         )
     }
 
@@ -53,7 +76,10 @@ class TravelAPI {
                 name = travel.name,
                 startDate = travel.startDate,
                 code = travel.code,
-                endDate = travel.endDate
+                endDate = travel.endDate,
+                imageUrl = travel.imageUrl,
+                days = travel.days,
+                travelDays = emptyList()
             )
         }
     }
@@ -68,7 +94,17 @@ class TravelAPI {
             name = travel.name,
             code = travel.code,
             startDate = travel.startDate,
-            endDate = travel.endDate
+            endDate = travel.endDate,
+            imageUrl = travel.imageUrl,
+            days = travel.days,
+            travelDays = travel.travelDayEntityList.map {TravelDayDTO(
+                id = it.id,
+                dayNumber = it.dayNumber,
+                name = it.name,
+                description = it.description,
+                travelId = travel.id!!,
+                activities = null
+            ) }
         )
     }
 }

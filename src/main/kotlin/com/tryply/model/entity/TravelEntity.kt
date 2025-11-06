@@ -17,6 +17,7 @@ class TravelEntity : PanacheEntity() {
     var startDate: String = ""
     var endDate: String = ""
     var imageUrl: String? = null
+    var days: Int = 1
     @OneToMany(cascade = [(CascadeType.ALL)])
     var travelDayEntityList = mutableListOf<TravelDayEntity>()
     @OneToMany(cascade = [(CascadeType.ALL)])
@@ -29,5 +30,17 @@ class TravelEntity : PanacheEntity() {
 
     fun generateCode() {
         this.code = UUID.randomUUID().toString()
+    }
+
+    fun generateTravelDays() {
+        travelDayEntityList.clear()
+        for (i in 1..days) {
+            val travelDayEntity = TravelDayEntity()
+            travelDayEntity.dayNumber = i
+            travelDayEntity.name = "Day $i"
+            travelDayEntity.description = ""
+            travelDayEntity.travel = this
+            travelDayEntityList.add(travelDayEntity)
+        }
     }
 }

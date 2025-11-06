@@ -20,8 +20,8 @@ open class UserValidator {
 
     fun validateProfilePictureUrl(url: String?): Boolean {
         if (url == null) return true
-        val urlRegex = "^(http|https)://.*$".toRegex()
-        return url.matches(urlRegex)
+        val regex = "^(http|https)://.*\\.(jpg|jpeg|png|gif)$".toRegex(RegexOption.IGNORE_CASE)
+        return url.matches(regex)
     }
 
     fun validateUserData(

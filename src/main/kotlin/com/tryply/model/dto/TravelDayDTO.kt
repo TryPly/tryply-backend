@@ -1,9 +1,12 @@
 package com.tryply.model.dto
 
+import java.io.Serializable
+
 data class TravelDayDTO (
     val id: Long?,
     val travelId: Long,
-    val date: String,
-    val title: String?,
-    val description: String?
-)
+    val dayNumber: Int,
+    val name: String?,
+    val description: String?,
+    val activities: List<ActivityDTO>?
+) : Serializable
