@@ -1,8 +1,8 @@
 package com.tryply.api
 
-import com.tryply.dto.ActivityDTO
-import com.tryply.dto.TravelDTO
-import com.tryply.dto.TravelDayDTO
+import com.tryply.dto.activity.ActivityDTO
+import com.tryply.dto.travel.TravelDTO
+import com.tryply.dto.travelday.TravelDayDTO
 import com.tryply.model.entity.TravelDayEntity
 import com.tryply.validator.TravelDayValidator
 import com.tryply.repository.TravelDayRepository

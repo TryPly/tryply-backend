@@ -1,6 +1,6 @@
 package com.tryply.validator
 
-import com.tryply.dto.ActivityDTO
+import com.tryply.dto.activity.ActivityDTO
 
 class ActivityValidator {
 

@@ -1,6 +1,6 @@
 package com.tryply.validator
 
-import com.tryply.dto.TravelDayDTO
+import com.tryply.dto.travelday.TravelDayDTO
 
 class TravelDayValidator {
 

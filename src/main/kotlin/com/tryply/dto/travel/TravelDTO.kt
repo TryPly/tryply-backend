@@ -1,6 +1,6 @@
-package com.tryply.dto
+package com.tryply.dto.travel
 
-
+import com.tryply.dto.travelday.TravelDayDTO
 
 data class TravelDTO(
     val id: Long?,

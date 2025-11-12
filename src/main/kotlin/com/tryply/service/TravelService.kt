@@ -1,31 +1,20 @@
-package com.tryply.api
+package com.tryply.service
 
 import com.tryply.dto.travel.TravelDTO
 import com.tryply.dto.travelday.TravelDayDTO
 import com.tryply.model.entity.TravelEntity
-import com.tryply.validator.TravelValidator
 import com.tryply.repository.TravelRepository
+import com.tryply.validator.TravelValidator
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotFoundException
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.PathParam
-import jakarta.ws.rs.Produces
-import jakarta.ws.rs.core.MediaType
 
 @ApplicationScoped
-@Path("/travels")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 @Transactional
-class TravelAPI {
+class TravelService {
 
     val travelRepository = TravelRepository()
 
-    @POST
     fun createTravel(travelDTO: TravelDTO): TravelDTO {
 
         val travelValidator = TravelValidator()
@@ -70,7 +59,7 @@ class TravelAPI {
         )
     }
 
-    @GET
+
     fun getAllTravels(): List<TravelDTO> {
         return travelRepository.listAll().map { travel ->
             TravelDTO(
@@ -89,9 +78,7 @@ class TravelAPI {
         }
     }
 
-    @GET
-    @Path("/{travelId}")
-    fun getTravelById(@PathParam("travelId") travelId: Long): TravelDTO {
+    fun getTravelById(travelId: Long): TravelDTO {
         val travel = travelRepository.findById(travelId) ?: throw NotFoundException("Travel with id $travelId not found")
         return TravelDTO(
             id = travel.id,

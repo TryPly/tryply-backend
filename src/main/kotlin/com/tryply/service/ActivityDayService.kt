@@ -1,39 +1,26 @@
-package com.tryply.api
+package com.tryply.service
 
 import com.tryply.dto.activity.ActivityDTO
 import com.tryply.model.entity.ActivityDayEntity
 import com.tryply.repository.ActivityDayRepository
 import com.tryply.repository.TravelDayRepository
-import com.tryply.validator.ActivityValidator
 import com.tryply.repository.TravelRepository
+import com.tryply.validator.ActivityValidator
 import jakarta.enterprise.context.ApplicationScoped
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.DELETE
-import jakarta.ws.rs.GET
+import jakarta.transaction.Transactional
 import jakarta.ws.rs.NotFoundException
-import jakarta.ws.rs.PATCH
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.PUT
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.PathParam
-import jakarta.ws.rs.Produces
-import jakarta.ws.rs.core.MediaType
 
 @ApplicationScoped
-@Path("/travels/{travelId}/travelDays/{travelDayId}/activities")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
-class ActivityDayAPI {
+@Transactional
+class ActivityDayService {
 
     val travelRepository: TravelRepository = TravelRepository()
     val travelDayRepository: TravelDayRepository = TravelDayRepository()
     val activityDayRepository = ActivityDayRepository()
 
-
-    @POST
     fun createActivityDay(
-        @PathParam("travelId") travelId: Long,
-        @PathParam("travelDayId") travelDayId: Long,
+        travelId: Long,
+        travelDayId: Long,
         activityDTO: ActivityDTO
     ): ActivityDTO {
         val activityValidator = ActivityValidator()
@@ -69,10 +56,9 @@ class ActivityDayAPI {
 
     }
 
-    @GET
     fun retrieveActivities(
-        @PathParam("travelId") travelId: Long,
-        @PathParam("travelDayId") travelDayId: Long
+        travelId: Long,
+        travelDayId: Long
     ): List<ActivityDTO> {
         val activities = activityDayRepository.find("travelDay.id = ?1 and travelDay.travel.id = ?2", travelDayId, travelId).list()
 
@@ -91,12 +77,10 @@ class ActivityDayAPI {
         }
     }
 
-    @PUT
-    @Path("/{activityId}")
     fun updateActivity(
-        @PathParam("travelId") travelId: Long,
-        @PathParam("travelDayId") travelDayId: Long,
-        @PathParam("activityId") activityId: Long,
+        travelId: Long,
+        travelDayId: Long,
+        activityId: Long,
         activityDTO: ActivityDTO
     ) {
         val activityValidator = ActivityValidator()
@@ -114,12 +98,10 @@ class ActivityDayAPI {
 
     }
 
-    @DELETE
-    @Path("/{activityId}")
     fun deleteActivity(
-        @PathParam("travelId") travelId: Long,
-        @PathParam("travelDayId") travelDayId: Long,
-        @PathParam("activityId") activityId: Long
+        travelId: Long,
+        travelDayId: Long,
+        activityId: Long
     ) {
         val activity = activityDayRepository.find(
             "travelDay.travel.id = ?1 and travelDay.id = ?2 and id = ?3",
@@ -129,12 +111,11 @@ class ActivityDayAPI {
         activity.delete()
     }
 
-    @PATCH
-    @Path("/{activityId}")
     fun markActivityCompleted(
-        @PathParam("travelId") travelId: Long,
-        @PathParam("travelDayId") travelDayId: Long,
-        @PathParam("activityId") activityId: Long, completed: Boolean
+        travelId: Long,
+        travelDayId: Long,
+        activityId: Long,
+        completed: Boolean
     ): ActivityDTO {
         val activity = activityDayRepository.find(
             "travelDay.travel.id = ?1 and travelDay.id = ?2 and id = ?3",
@@ -156,8 +137,5 @@ class ActivityDayAPI {
             lastUpdateDate = activity.lastUpdateDate
         )
     }
-
-
-
 
 }

@@ -15,6 +15,8 @@ class ActivityDayEntity : TryPlyEntity() {
     var time : String = ""
     var completed : Boolean = false
 
+    //TODO: add order field to sort activities in a day
+
     @ManyToOne
     @JoinColumn(name = "travel_day_id")
     var travelDay : TravelDayEntity? = null

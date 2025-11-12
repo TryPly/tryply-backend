@@ -2,6 +2,7 @@
 plugins {
     id("org.jetbrains.kotlin.jvm") version "2.0.21"
     id("io.quarkus") version "3.20.1"
+    id("org.jetbrains.kotlin.kapt") version "2.0.21"
 }
 
 val quarkusPlatformVersion = "3.20.1"
@@ -12,6 +13,7 @@ java {
         languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
+
 
 repositories {
     mavenCentral()
@@ -38,6 +40,8 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
+    implementation("org.mapstruct:mapstruct:$mapstructVersion")
+    kapt("org.mapstruct:mapstruct-processor:$mapstructVersion")
 
     testImplementation("io.quarkus:quarkus-junit5")
     testImplementation("io.rest-assured:rest-assured")
@@ -56,3 +60,6 @@ kotlin {
 }
 
 
+kapt {
+    correctErrorTypes = true
+}
