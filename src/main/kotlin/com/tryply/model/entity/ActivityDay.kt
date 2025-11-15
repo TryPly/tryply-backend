@@ -1,13 +1,12 @@
 package com.tryply.model.entity
 
-import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntity
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.JoinColumn
 import jakarta.persistence.ManyToOne
 
 @Entity
-class ActivityDayEntity : TryPlyEntity() {
+class ActivityDay : TryPlyEntity() {
 
     var name: String = ""
     @Column(columnDefinition = "TEXT")
@@ -19,6 +18,6 @@ class ActivityDayEntity : TryPlyEntity() {
 
     @ManyToOne
     @JoinColumn(name = "travel_day_id")
-    var travelDay : TravelDayEntity? = null
+    var travelDay : TravelDay? = null
 
 }

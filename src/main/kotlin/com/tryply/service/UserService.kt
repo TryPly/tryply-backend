@@ -1,7 +1,7 @@
 package com.tryply.service
 
 import com.tryply.dto.UserDTO
-import com.tryply.model.entity.UserEntity
+import com.tryply.model.entity.User
 import com.tryply.repository.UserRepository
 import com.tryply.validator.UserValidator
 import io.vertx.core.impl.logging.LoggerFactory
@@ -28,7 +28,7 @@ class UserService {
             throw IllegalArgumentException("Username already in use")
         }
 
-        val user = UserEntity().apply {
+        val user = User().apply {
             username = userDTO.username
             email = userDTO.email
             firstName = userDTO.firstName

@@ -1,14 +1,13 @@
 package com.tryply.model.entity
 
-import io.quarkus.hibernate.orm.panache.kotlin.PanacheEntity
 import jakarta.persistence.CascadeType
 import jakarta.persistence.Column
 import jakarta.persistence.Entity
 import jakarta.persistence.OneToMany
-import java.util.UUID
+import java.util.*
 
 @Entity
-class TravelEntity : TryPlyEntity() {
+class Travel : TryPlyEntity() {
 
     var name: String = ""
     @Column(columnDefinition = "TEXT")
@@ -19,9 +18,9 @@ class TravelEntity : TryPlyEntity() {
     var imageUrl: String? = null
     var days: Int = 1
     @OneToMany(cascade = [(CascadeType.ALL)])
-    var travelDayEntityList = mutableListOf<TravelDayEntity>()
+    var travelDayList = mutableListOf<TravelDay>()
     @OneToMany(cascade = [(CascadeType.ALL)])
-    var activityEntityList = mutableListOf<ActivityEntity>()
+    var activityList = mutableListOf<Activity>()
 
 
     override fun toString(): String {
@@ -33,14 +32,14 @@ class TravelEntity : TryPlyEntity() {
     }
 
     fun generateTravelDays() {
-        travelDayEntityList.clear()
+        travelDayList.clear()
         for (i in 1..days) {
-            val travelDayEntity = TravelDayEntity()
-            travelDayEntity.dayNumber = i
-            travelDayEntity.name = "Day $i"
-            travelDayEntity.description = ""
-            travelDayEntity.travel = this
-            travelDayEntityList.add(travelDayEntity)
+            val travelDay = TravelDay()
+            travelDay.dayNumber = i
+            travelDay.name = "Day $i"
+            travelDay.description = ""
+            travelDay.travel = this
+            travelDayList.add(travelDay)
         }
     }
 }

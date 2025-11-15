@@ -1,7 +1,7 @@
 package com.tryply.service
 
 import com.tryply.dto.activity.ActivityDTO
-import com.tryply.model.entity.ActivityDayEntity
+import com.tryply.model.entity.ActivityDay
 import com.tryply.repository.ActivityDayRepository
 import com.tryply.repository.TravelDayRepository
 import com.tryply.repository.TravelRepository
@@ -32,7 +32,7 @@ class ActivityDayService {
             ?: throw NotFoundException("Travel Day not found")
 
         activityValidator.validateActivityDayData(activityDTO)
-        val activity = ActivityDayEntity().apply {
+        val activity = ActivityDay().apply {
             name = activityDTO.name
             description = activityDTO.description ?: ""
             time = activityDTO.time ?: ""

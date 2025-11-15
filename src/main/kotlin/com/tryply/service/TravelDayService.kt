@@ -1,39 +1,27 @@
-package com.tryply.api
+package com.tryply.service
 
 import com.tryply.dto.activity.ActivityDTO
 import com.tryply.dto.travel.TravelDTO
 import com.tryply.dto.travelday.TravelDayDTO
-import com.tryply.model.entity.TravelDayEntity
-import com.tryply.validator.TravelDayValidator
+import com.tryply.model.entity.TravelDay
 import com.tryply.repository.TravelDayRepository
 import com.tryply.repository.TravelRepository
+import com.tryply.validator.TravelDayValidator
 import io.quarkus.panache.common.Sort
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.GET
 import jakarta.ws.rs.NotFoundException
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.PUT
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.PathParam
-import jakarta.ws.rs.Produces
-import jakarta.ws.rs.core.MediaType
-import org.jboss.resteasy.reactive.ResponseStatus
 
 @ApplicationScoped
-@Path("/travels/{travelId}/travelDays")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
 @Transactional
-class TravelDayAPI {
+class TravelDayService {
+
     val travelRepository : TravelRepository = TravelRepository()
     val travelDayRepository: TravelDayRepository = TravelDayRepository()
 
 
-    @POST
     fun createTravelDay(
-        @PathParam("travelId") travelId: Long,
+        travelId: Long,
         travelDayDTO: TravelDayDTO
     ): TravelDTO {
 
@@ -47,12 +35,12 @@ class TravelDayAPI {
 
         travel.days += 1
 
-        val travelDayEntity = TravelDayEntity()
-        travelDayEntity.dayNumber = travel.days + 1
-        travelDayEntity.name = travelDayDTO.name!!
-        travelDayEntity.description = travelDayDTO.description!!
-        travelDayEntity.travel = travel
-        travel.travelDayEntityList.add(travelDayEntity)
+        val travelDay = TravelDay()
+        travelDay.dayNumber = travel.days + 1
+        travelDay.name = travelDayDTO.name!!
+        travelDay.description = travelDayDTO.description!!
+        travelDay.travel = travel
+        travel.travelDayList.add(travelDay)
 
 
         travel.persistAndFlush()
@@ -66,7 +54,7 @@ class TravelDayAPI {
             endDate = travel.endDate,
             imageUrl = travel.imageUrl,
             days = travel.days,
-            travelDays = travel.travelDayEntityList.map { td -> TravelDayDTO(
+            travelDays = travel.travelDayList.map { td -> TravelDayDTO(
                 id = td.id,
                 dayNumber = td.dayNumber,
                 name = td.name,
@@ -81,12 +69,9 @@ class TravelDayAPI {
         )
     }
 
-    @PUT
-    @Path("/{travelDayId}")
-    @ResponseStatus(204)
     fun updateTravelDay(
-        @PathParam("travelId") travelId: Long,
-        @PathParam("travelDayId") travelDayId: Long,
+        travelId: Long,
+        travelDayId: Long,
         travelDayDTO: TravelDayDTO
     ) {
         val travelDayEntity = travelDayRepository.find(
@@ -107,8 +92,7 @@ class TravelDayAPI {
         travelDayEntity.persist()
     }
 
-    @GET
-    fun getTravelDays(@PathParam("travelId") travelId: Long): List<TravelDayDTO> {
+    fun getTravelDays(travelId: Long): List<TravelDayDTO> {
         travelDayRepository.find(query="travel.id", Sort.by("dayNumber", Sort.Direction.Ascending), travelId).list().let { travelDayEntities ->
             return travelDayEntities.map { travelDayEntity ->
                 TravelDayDTO(
@@ -125,11 +109,9 @@ class TravelDayAPI {
         }
     }
 
-    @GET
-    @Path("/{travelDayId}")
     fun getTravelDayByNumber(
-        @PathParam("travelId") travelId: Long,
-        @PathParam("travelDayId") travelDayId: Long
+        travelId: Long,
+        travelDayId: Long
     ): TravelDayDTO {
         val travelDayEntity = travelDayRepository.find(
             "travel.id = ?1 and id = ?2",
@@ -144,7 +126,7 @@ class TravelDayAPI {
             travelId = travelId,
             createDate = travelDayEntity.createdDate,
             lastUpdateDate = travelDayEntity.lastUpdateDate,
-            activities = travelDayEntity.activityDayEntityList.map
+            activities = travelDayEntity.activityDayList.map
             { activityEntity ->
                 ActivityDTO(
                     id = activityEntity.id,

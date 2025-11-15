@@ -1,19 +1,26 @@
-package com.tryply.api
+package com.tryply.resource
 
+import com.tryply.mapper.CostMapper
+import com.tryply.service.CostService
 import jakarta.enterprise.context.ApplicationScoped
-import jakarta.ws.rs.Consumes
-import jakarta.ws.rs.DELETE
-import jakarta.ws.rs.GET
-import jakarta.ws.rs.POST
-import jakarta.ws.rs.PUT
-import jakarta.ws.rs.Path
-import jakarta.ws.rs.Produces
+import jakarta.inject.Inject
+import jakarta.ws.rs.*
 
 @ApplicationScoped
 @Path("/travel/{travelId}/costs")
 @Produces("application/json")
 @Consumes("application/json")
-class CostAPI {
+class CostResource {
+
+
+    val costService : CostService
+    val costMapper : CostMapper
+
+    @Inject
+    constructor(costService: CostService, costMapper: CostMapper) {
+        this.costService = costService
+        this.costMapper = costMapper
+    }
 
     @POST
     fun addCost(): String {

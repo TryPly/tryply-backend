@@ -1,11 +1,10 @@
-package com.tryply.api
+package com.tryply.resource
 
 import com.tryply.dto.activity.ActivityDTO
 import com.tryply.dto.activity.CreateActivityDTO
 import com.tryply.dto.activity.UpdateActivityDTO
 import com.tryply.mapper.ActivityMapper
 import com.tryply.service.ActivityService
-import com.tryply.validator.ActivityValidator
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.inject.Inject
 import jakarta.ws.rs.*
@@ -15,13 +14,17 @@ import jakarta.ws.rs.core.MediaType
 @Path("/travels/{travelId}/activities")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-class ActivityAPI @Inject constructor(
-    private val activityService: ActivityService,
-    private val activityMapper: ActivityMapper,
-    private val activityValidator: ActivityValidator
-)
-{
+class ActivityResource {
 
+
+    val activityService : ActivityService
+    val activityMapper : ActivityMapper
+
+    @Inject
+    constructor(activityService: ActivityService, activityMapper: ActivityMapper) {
+        this.activityService = activityService
+        this.activityMapper = activityMapper
+    }
 
     @POST
     fun createActivity(travelId: Long, activityDTO: CreateActivityDTO): ActivityDTO {

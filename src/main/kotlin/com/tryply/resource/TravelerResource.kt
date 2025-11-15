@@ -1,7 +1,6 @@
-package com.tryply.api
+package com.tryply.resource
 
 import com.tryply.dto.traveler.TravelerDTO
-import com.tryply.model.entity.TravelerEntity
 import com.tryply.model.enums.TravelerRole
 import jakarta.enterprise.context.ApplicationScoped
 import jakarta.ws.rs.Consumes
@@ -17,7 +16,7 @@ import jakarta.ws.rs.core.MediaType
 @Path("/travelers")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
-class TravelerAPI {
+class TravelerResource {
 
     @POST
     fun createTraveler(): String {

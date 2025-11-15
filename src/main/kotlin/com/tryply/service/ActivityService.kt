@@ -1,7 +1,7 @@
 package com.tryply.service
 
 import com.tryply.dto.activity.ActivityDTO
-import com.tryply.model.entity.ActivityEntity
+import com.tryply.model.entity.Activity
 import com.tryply.repository.ActivityRepository
 import com.tryply.repository.TravelRepository
 import com.tryply.validator.ActivityValidator
@@ -25,7 +25,7 @@ class ActivityService {
             ?: throw IllegalArgumentException("Travel not found")
 
         activityValidator.validateActivityData(activityDTO)
-        val activity = ActivityEntity().apply {
+        val activity = Activity().apply {
             name = activityDTO.name
             description = activityDTO.description ?: ""
             travel = travelEntity

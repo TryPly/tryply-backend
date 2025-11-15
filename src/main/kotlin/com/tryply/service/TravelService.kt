@@ -2,7 +2,7 @@ package com.tryply.service
 
 import com.tryply.dto.travel.TravelDTO
 import com.tryply.dto.travelday.TravelDayDTO
-import com.tryply.model.entity.TravelEntity
+import com.tryply.model.entity.Travel
 import com.tryply.repository.TravelRepository
 import com.tryply.validator.TravelValidator
 import jakarta.enterprise.context.ApplicationScoped
@@ -22,7 +22,7 @@ class TravelService {
             throw IllegalArgumentException("Invalid travel data")
         }
 
-        val travel = TravelEntity().apply {
+        val travel = Travel().apply {
             destination = travelDTO.destination
             name = travelDTO.name
             startDate = travelDTO.startDate
@@ -44,7 +44,7 @@ class TravelService {
             endDate = travel.endDate,
             imageUrl = travel.imageUrl,
             days = travel.days,
-            travelDays = travel.travelDayEntityList.map {TravelDayDTO(
+            travelDays = travel.travelDayList.map {TravelDayDTO(
                 id = it.id,
                 dayNumber = it.dayNumber,
                 name = it.name,
@@ -89,7 +89,7 @@ class TravelService {
             endDate = travel.endDate,
             imageUrl = travel.imageUrl,
             days = travel.days,
-            travelDays = travel.travelDayEntityList.map {TravelDayDTO(
+            travelDays = travel.travelDayList.map {TravelDayDTO(
                 id = it.id,
                 dayNumber = it.dayNumber,
                 name = it.name,
