@@ -5,8 +5,9 @@ import com.tryply.dto.travelday.RetrieveTravelDayDTO
 import com.tryply.dto.travelday.TravelDayDTO
 import com.tryply.dto.travelday.UpdateTravelDayDTO
 import org.mapstruct.Mapper
+import org.mapstruct.MappingConstants
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = MappingConstants.ComponentModel.JAKARTA)
 interface TravelDayMapper {
 
     fun toDTO(travelDayDTO: CreateTravelDayDTO) : TravelDayDTO

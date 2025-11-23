@@ -43,7 +43,7 @@ class TravelDayService {
         travel.travelDayList.add(travelDay)
 
 
-        travel.persistAndFlush()
+        travel.persist()
 
         return TravelDTO(
             id = travel.id,

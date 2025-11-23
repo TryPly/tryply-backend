@@ -5,8 +5,9 @@ import com.tryply.dto.travel.RetrieveTravelDTO
 import com.tryply.dto.travel.TravelDTO
 import com.tryply.dto.travel.UpdateTravelDTO
 import org.mapstruct.Mapper
+import org.mapstruct.MappingConstants
 
-@Mapper(componentModel = "cdi")
+@Mapper(componentModel = MappingConstants.ComponentModel.JAKARTA)
 interface TravelMapper {
 
     fun toDTO(travelDTO: CreateTravelDTO) : TravelDTO

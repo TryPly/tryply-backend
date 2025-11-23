@@ -21,7 +21,7 @@ class TravelerService {
     val logger : Logger = Logger.getLogger(TravelerService::class.java.name)
 
     fun createTraveler(travelerDTO: TravelerDTO): TravelerDTO {
-        val travel = travelRepository.findById(travelerDTO.id) ?: throw NotFoundException("Traveler not found")
+        val travel = travelRepository.findById(travelerDTO.travelId) ?: throw NotFoundException("Traveler not found")
         val user = userRepository.find("username = ?1", travelerDTO.username).firstResult() ?: throw NotFoundException("User not found")
 
         if (travelerRepository.find("user.id = ?1 AND travel.id = ?2", user.id, travel.id).firstResult() != null) {
@@ -34,7 +34,7 @@ class TravelerService {
             this.role = travelerDTO.role ?: TravelerRole.MEMBER
         }
 
-        traveler.persistAndFlush()
+        traveler.persist()
         return TravelerDTO(
             id = traveler.id!!,
             username = user.username,

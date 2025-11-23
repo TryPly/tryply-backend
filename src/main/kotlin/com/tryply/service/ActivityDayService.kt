@@ -39,7 +39,7 @@ class ActivityDayService {
             completed = false
             travelDay = travelDayEntity
         }
-        activity.persistAndFlush()
+        activity.persist()
 
         return ActivityDTO(
             id = activity.id!!,

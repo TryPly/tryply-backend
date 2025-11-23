@@ -30,7 +30,7 @@ class ActivityService {
             description = activityDTO.description ?: ""
             travel = travelEntity
         }
-        activity.persistAndFlush()
+        activity.persist()
 
         return ActivityDTO(
             id = activity.id!!,
