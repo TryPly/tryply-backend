@@ -16,10 +16,10 @@ import jakarta.ws.rs.*
 class RefundResource {
 
     @Inject
-    lateinit var refundService: RefundService
+    private lateinit var refundService: RefundService
 
     @Inject
-    lateinit var refundMapper: RefundMapper
+    private lateinit var refundMapper: RefundMapper
 
 
     @GET
