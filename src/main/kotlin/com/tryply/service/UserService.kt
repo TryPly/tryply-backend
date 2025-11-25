@@ -1,6 +1,6 @@
 package com.tryply.service
 
-import com.tryply.dto.UserDTO
+import com.tryply.dto.user.UserDTO
 import com.tryply.model.entity.User
 import com.tryply.repository.UserRepository
 import com.tryply.validator.UserValidator
@@ -21,19 +21,24 @@ class UserService {
         val validator = UserValidator()
         validator.validateUserData(userDTO)
 
-        userRepository.find("email", userDTO.email).firstResult()?.let {
-            throw IllegalArgumentException("Email already in use")
-        }
-        userRepository.find("username", userDTO.username).firstResult()?.let {
-            throw IllegalArgumentException("Username already in use")
-        }
+        var user = userRepository.find("email", userDTO.email).firstResult()
 
-        val user = User().apply {
-            username = userDTO.username
-            email = userDTO.email
-            firstName = userDTO.firstName
-            lastName = userDTO.lastName
-            profilePictureUrl = userDTO.profilePictureUrl
+        if (user == null){
+            user = User().apply {
+                keycloakId = userDTO.keycloakId ?: ""
+                username = userDTO.username
+                email = userDTO.email
+                firstName = userDTO.firstName
+                lastName = userDTO.lastName
+                profilePictureUrl = userDTO.profilePictureUrl
+            }
+        }
+        else {
+            user.keycloakId = userDTO.keycloakId ?: ""
+            user.username = userDTO.username
+            user.firstName = userDTO.firstName
+            user.lastName = userDTO.lastName
+            user.profilePictureUrl = userDTO.profilePictureUrl
         }
 
         user.persist()
@@ -46,7 +51,8 @@ class UserService {
             lastName = user.lastName,
             profilePictureUrl = user.profilePictureUrl,
             createDate = user.createdDate,
-            lastUpdateDate = user.lastUpdateDate
+            lastUpdateDate = user.lastUpdateDate,
+            keycloakId = user.keycloakId,
         )
     }
 
@@ -60,7 +66,8 @@ class UserService {
                 lastName = user.lastName,
                 profilePictureUrl = user.profilePictureUrl,
                 createDate = user.createdDate,
-                lastUpdateDate = user.lastUpdateDate
+                lastUpdateDate = user.lastUpdateDate,
+                keycloakId = user.keycloakId
             )
         }
     }
@@ -75,7 +82,8 @@ class UserService {
             lastName = user.lastName,
             profilePictureUrl = user.profilePictureUrl,
             createDate = user.createdDate,
-            lastUpdateDate = user.lastUpdateDate
+            lastUpdateDate = user.lastUpdateDate,
+            keycloakId = user.keycloakId
         )
     }
 }

@@ -8,6 +8,8 @@ import jakarta.persistence.Table
 @Table(name = "users")
 class User : TryPlyEntity() {
 
+    @Column(unique = true, nullable = true)
+    var keycloakId: String = ""
     @Column(unique = true, nullable = false)
     var username: String = ""
     var firstName: String = ""

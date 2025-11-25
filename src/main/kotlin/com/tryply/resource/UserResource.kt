@@ -1,6 +1,6 @@
 package com.tryply.resource
 
-import com.tryply.dto.UserDTO
+import com.tryply.dto.user.UserDTO
 import com.tryply.dto.user.CreateUserDTO
 import com.tryply.mapper.UserMapper
 import com.tryply.service.UserService

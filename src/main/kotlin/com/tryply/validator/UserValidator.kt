@@ -1,6 +1,6 @@
 package com.tryply.validator
 
-import com.tryply.dto.UserDTO
+import com.tryply.dto.user.UserDTO
 
 open class UserValidator {
 

@@ -1,6 +1,6 @@
 package com.tryply.mapper
 
-import com.tryply.dto.UserDTO
+import com.tryply.dto.user.UserDTO
 import com.tryply.dto.user.CreateUserDTO
 import com.tryply.dto.user.RetrieveUserDTO
 import com.tryply.dto.user.UpdateUserDTO
