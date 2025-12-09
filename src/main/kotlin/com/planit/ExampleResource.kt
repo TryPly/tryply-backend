@@ -10,5 +10,5 @@ class ExampleResource {
 
     @GET
     @Produces(MediaType.TEXT_PLAIN)
-    fun hello() = "Hello from TryPly Backend"
+    fun hello() = "Hello from PlanIt Backend"
 }
