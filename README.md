@@ -1,6 +1,6 @@
-# 🧠 Triply Backend
+# 🧠 Plan-It Backend
 
-Backend dell’app **Triply** — realizzato con **Quarkus + Kotlin + PostgreSQL**.
+Backend dell’app **PlanIt** — realizzato con **Quarkus + Kotlin + PostgreSQL**.
 
 ## 🚀 Setup rapido
 

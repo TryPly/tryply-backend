@@ -49,9 +49,9 @@ dependencies {
     testImplementation("io.rest-assured:rest-assured")
 }
 
-group = "com.tryply"
+group = "com.planit"
 version = "1.0.0"
-description = "TryPly Backend"
+description = "Plan-It Backend"
 
 tasks.withType<Test> {
     useJUnitPlatform()

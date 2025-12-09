@@ -1,4 +1,4 @@
-rootProject.name="tryply-backend"
+rootProject.name="planit-backend"
 pluginManagement {
     val quarkusPluginVersion: String by settings
     val quarkusPluginId: String by settings
